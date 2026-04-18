@@ -1,86 +1,137 @@
-# 🚀 Project Setup & Usage Guide
+# 🚀 WhatsPhish - Setup & Usage Guide
 
-## 📌 Introduction
+## 📌 Overview
 
-This repository contains a Python-based project that can be run on both desktop (Kali Linux) and mobile (Termux). Follow the steps below to set it up correctly.
-
----
-
-## 🖥️ Kali Linux / Desktop Installation
-
-Run the following commands in your terminal:
-
-```bash
-cd project_folder
-pip install flask
-python launcher.py
-```
-
-### ▶️ Steps:
-
-1. Open terminal
-2. Navigate to the project folder
-3. Install required dependencies
-4. Run the script
-5. Follow on-screen instructions
-
----
-
-## 📱 Termux (Android) Installation
-
-Run these commands:
-
-```bash
-pkg update && pkg upgrade
-pkg install python openssh
-pip install flask
-cd project_folder
-python launcher.py
-```
-
-### ▶️ Steps:
-
-1. Update packages
-2. Install Python & OpenSSH
-3. Install required Python libraries
-4. Navigate to project directory
-5. Execute the script
-
----
-
-## ⚙️ Key Features
-
-* Cross-platform support (Linux & Android)
-* Simple command-line interface
-* Easy setup process
-* Lightweight dependencies
-
----
-
-## 🌐 Tunneling Options
-
-| Tool                   | Desktop       | Termux                    | Notes                         |
-| ---------------------- | ------------- | ------------------------- | ----------------------------- |
-| Cloudflared            | ✅ Best Option | ⚠️ Install manually first | No signup required            |
-| Ngrok                  | ✅ Supported   | ✅ Supported               | Requires account & auth token |
-| Serveo / localhost.run | ✅ Supported   | ✅ Supported               | Works via SSH                 |
-
----
-
-## 💡 Recommendation
-
-For beginners, **Cloudflared** is recommended because:
-
-* No signup required
-* No token setup
-* Easy and fast
+This project demonstrates a **cybersecurity awareness / educational tool** built using Python and Flask.
+It is designed for **learning, testing, and ethical research purposes only**.
 
 ---
 
 ## ⚠️ Disclaimer
 
-This project is intended for **educational and ethical purposes only**.
-Do not use it for unauthorized access, data collection, or illegal activities.
+> This project is strictly for **educational and ethical use**.
+> Do NOT use it for unauthorized access, phishing, or illegal activities.
+
+---
+
+## 🖥️ Requirements
+
+Make sure you have:
+
+* Python 3.x
+* pip (Python package manager)
+* Git (optional)
+
+---
+
+## 📥 Installation
+
+### 1️⃣ Clone Repository
+
+```bash id="clone"
+git clone https://github.com/anascybertech/WhatsPhish.git
+cd WhatsPhish
+```
+
+---
+
+## 🖥️ Kali Linux / Desktop Setup
+
+```bash id="kali"
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Python & pip (if not installed)
+sudo apt install python3 python3-pip -y
+
+# Install dependencies
+pip install -r requirements.txt || pip install flask
+
+# Run the project
+python launcher.py
+```
+
+### ▶️ Steps:
+
+1. Navigate to project folder
+2. Install dependencies
+3. Run script
+4. Follow terminal instructions
+
+---
+
+## 📱 Termux (Android) Setup
+
+```bash id="termux"
+pkg update && pkg upgrade -y
+
+# Install required packages
+pkg install python openssh git -y
+
+# Clone repository
+git clone https://github.com/anascybertech/WhatsPhish.git
+cd WhatsPhish
+
+# Install dependencies
+pip install -r requirements.txt || pip install flask
+
+# Run the project
+python launcher.py
+```
+
+---
+
+## 🌐 Networking / Access (General)
+
+Depending on your setup, you may use:
+
+* Localhost (default)
+* Port forwarding
+* External tunneling tools (for development/testing only)
+
+---
+
+## ⚙️ Features
+
+* Simple Python-based interface
+* Cross-platform support
+* Lightweight setup
+* Educational cybersecurity demonstration
+
+---
+
+## 🛠️ Troubleshooting
+
+### ❌ Module Not Found
+
+```bash id="fix1"
+pip install flask
+```
+
+### ❌ Permission Issues
+
+```bash id="fix2"
+chmod +x launcher.py
+```
+
+### ❌ Python Not Found
+
+```bash id="fix3"
+python3 launcher.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+WhatsPhish/
+│── launcher.py
+│── requirements.txt
+│── templates/
+│── static/
+│── README.md
+```
 
 ---
 
@@ -89,11 +140,12 @@ Do not use it for unauthorized access, data collection, or illegal activities.
 If you face any issues:
 
 * Recheck installation steps
-* Ensure dependencies are installed
-* Run commands with proper permissions
+* Ensure Python is installed
+* Check dependencies
 
 ---
 
 ## 📄 License
 
-This project is provided for learning purposes. Modify and use responsibly.
+This project is for **educational purposes only**.
+Use responsibly.
